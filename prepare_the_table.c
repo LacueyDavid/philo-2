@@ -6,7 +6,7 @@
 /*   By: dlacuey <dlacuey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:30:06 by dlacuey           #+#    #+#             */
-/*   Updated: 2024/02/17 02:43:14 by dlacuey          ###   ########.fr       */
+/*   Updated: 2024/02/17 08:28:02 by dlacuey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ bool	prepare_the_table(t_table *table, int argc, char **argv)
 		return (false);
 	if (!philos_take_their_seats(table))
 	{
+		clean_the_table(table, table->number_of_philosophers);
+		return (false);
+	}
+	if (pthread_mutex_init(&table->print, NULL) != 0)
+	{
+		printf("Error: mutex init failed\n");
 		clean_the_table(table, table->number_of_philosophers);
 		return (false);
 	}

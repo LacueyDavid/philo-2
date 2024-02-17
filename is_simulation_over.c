@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_the_table.c                                  :+:      :+:    :+:   */
+/*   is_simulation_over.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlacuey <dlacuey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 15:38:28 by dlacuey           #+#    #+#             */
-/*   Updated: 2024/02/17 06:23:03 by dlacuey          ###   ########.fr       */
+/*   Created: 2024/02/17 08:31:46 by dlacuey           #+#    #+#             */
+/*   Updated: 2024/02/17 08:32:43 by dlacuey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	clean_the_table(t_table *table, size_t size_to_clean)
+bool	is_simulation_over(t_philo *philo, ssize_t count)
 {
-	size_t	index;
-
-	index = 0;
-	while (index < size_to_clean)
+	if (philo->table->times_each_philosopher_must_eat != -1)
+		if (count >= philo->table->times_each_philosopher_must_eat)
+			return (true);
+	pthread_mutex_lock(&philo->monitor_communication);
+	if (philo->someone_died == true)
 	{
-		pthread_mutex_destroy(&table->philos[index].monitor_communication);
-		pthread_mutex_destroy(&table->forks[index]);
-		index++;
+		pthread_mutex_unlock(&philo->monitor_communication);
+		return (true);
 	}
-	pthread_mutex_destroy(&table->print);
+	pthread_mutex_unlock(&philo->monitor_communication);
+	return (false);
 }

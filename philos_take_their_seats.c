@@ -6,7 +6,7 @@
 /*   By: dlacuey <dlacuey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:33:22 by dlacuey           #+#    #+#             */
-/*   Updated: 2024/02/17 04:11:21 by dlacuey          ###   ########.fr       */
+/*   Updated: 2024/02/17 08:28:18 by dlacuey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	philos_take_their_seats(t_table *table)
 {
 	assign_table_to_philo(table);
 	if (!assign_data_to_philo(table->philos, table->number_of_philosophers,
-		table->forks))
+			table->forks))
 	{
 		printf("Error: mutex init failed\n");
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: dlacuey <dlacuey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:50:54 by dlacuey           #+#    #+#             */
-/*   Updated: 2024/02/17 02:39:46 by dlacuey          ###   ########.fr       */
+/*   Updated: 2024/02/17 08:39:25 by dlacuey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
+	pthread_mutex_t	print;
 	size_t			dinner_start_time;
 	size_t			number_of_philosophers;
 	size_t			time_to_die;
@@ -55,6 +56,7 @@ typedef struct s_table
 }	t_table;
 
 bool	check_arguments_validity(int argc, char **argv);
+bool	between_max_min(char *nbr);
 
 bool	ft_isdigit(int c);
 int		ft_atoi(const char *nptr);
@@ -75,6 +77,8 @@ void	ft_usleep(size_t time_in_ms);
 
 void	print_message(t_philo *philo, char *message);
 
-bool	is_the_meal_over(t_philo *philo);
+bool	is_simulation_over(t_philo *philo, ssize_t count);
+
+void	monitor(t_table *table);
 
 #endif
